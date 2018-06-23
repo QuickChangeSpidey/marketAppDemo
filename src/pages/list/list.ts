@@ -29,6 +29,6 @@ export class SearchPage {
   itemTapped(event, item) {
     this.navCtrl.push(ItemDetailsPage, {
       item: item
-    });
+    }).then();
   }
 }
