@@ -8,22 +8,19 @@ import { SearchPage } from "../list/list";
   templateUrl: 'main_page.html'
 })
 export class MainPage {
-  myInput: String;
-  data:String;
 
   constructor(public navCtrl: NavController, public productServiceProvider: ProductsServiceProvider) {
 
+   this.productServiceProvider.getProductCategories().subscribe((data)=>{
+   });
+
   }
 
-  searchButtonClicked(myInput: String) {
-    this.myInput = myInput;
+  searchButtonClicked(myInput: string) {
 
-    this.productServiceProvider.getProducts().subscribe((data)=>{
-      this.data = data.toString();
+    this.productServiceProvider.getProducts(myInput,'0','15').subscribe((data)=>{
       this.navCtrl.push(SearchPage,{data: data}).then();
     });
-
-
 
   }
 }

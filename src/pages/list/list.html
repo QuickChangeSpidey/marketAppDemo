@@ -8,13 +8,30 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
-      <ion-icon name="{{item.icon}}" item-left></ion-icon>
-      {{item.title}}
-      <div class="item-note" item-right>
-        {{item.note}}
-      </div>
-    </button>
+
+  <ion-list *ngFor="let product of products">
+    <ion-item>
+      <ion-thumbnail item-start>
+        <img src= {{product.imageUrl}}>
+      </ion-thumbnail>
+      <h2>{{product.name}}</h2>
+      <h2>{{product.brand}}</h2>
+      <p>Max Price: {{product.maximumPrice}} Min Price: {{product.minimumPrice}}<br>Cash Back: {{product.cashback}}</p>
+      <button ion-button clear item-end (click)="itemTapped(click,product)">View</button>
+    </ion-item>
   </ion-list>
+
+  <p align="center">
+    <button ion-button color="primary" icon-start>
+      <ion-icon name='arrow-back'></ion-icon>
+      Back
+    </button>
+
+
+    <button ion-button color="primary" icon-end>
+      Next
+      <ion-icon name='arrow-forward'></ion-icon>
+    </button>
+  </p>
+
 </ion-content>
