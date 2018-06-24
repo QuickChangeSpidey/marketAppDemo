@@ -22,13 +22,13 @@
   </ion-list>
 
   <p align="center">
-    <button ion-button color="primary" icon-start>
+    <button ion-button color="primary" icon-start (click)="backClick()" *ngIf="hideButton">
       <ion-icon name='arrow-back'></ion-icon>
       Back
     </button>
 
 
-    <button ion-button color="primary" icon-end>
+    <button ion-button color="primary" icon-end (click)="nextClick()">
       Next
       <ion-icon name='arrow-forward'></ion-icon>
     </button>

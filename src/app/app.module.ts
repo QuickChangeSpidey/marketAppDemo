@@ -3,9 +3,13 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
+import { Contacts } from '@ionic-native/contacts';
+
+import { Screenshot } from '@ionic-native/screenshot';
+
 import { MainPage } from '../pages/main_page/main_page';
 import { ItemDetailsPage } from '../pages/item-details/item-details';
-import { SearchPage } from '../pages/list/list';
+import { SearchResultPage } from '../pages/list/list';
 
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -18,7 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
     MyApp,
     MainPage,
     ItemDetailsPage,
-    SearchPage
+    SearchResultPage
   ],
   imports: [
     BrowserModule,
@@ -30,11 +34,13 @@ import { HttpClientModule } from '@angular/common/http';
     MyApp,
     MainPage,
     ItemDetailsPage,
-    SearchPage
+    SearchResultPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    Contacts,
+    Screenshot,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ProductsServiceProvider
   ]

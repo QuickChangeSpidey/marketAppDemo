@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ProductsServiceProvider } from './../../providers/products-service/products-service';
 import { NavController } from "ionic-angular";
-import { SearchPage } from "../list/list";
+import { SearchResultPage } from "../list/list";
 
 @Component({
   selector: 'main-page',
@@ -19,7 +19,8 @@ export class MainPage {
   searchButtonClicked(myInput: string) {
 
     this.productServiceProvider.getProducts(myInput,'0','15').subscribe((data)=>{
-      this.navCtrl.push(SearchPage,{data: data}).then();
+      this.navCtrl.push(SearchResultPage,{data: data,
+      input:myInput }).then();
     });
 
   }
