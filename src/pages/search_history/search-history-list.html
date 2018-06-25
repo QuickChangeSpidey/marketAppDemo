@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Search History</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content margin="20px">
+  <ion-list *ngFor="let item of items">
+    <ion-item>
+      <h2>{{item}}</h2>
+      <p>Hayao Miyazaki • 1988</p>
+      <button ion-button clear item-end>Search Again</button>
+    </ion-item>
+  </ion-list>
+</ion-content>

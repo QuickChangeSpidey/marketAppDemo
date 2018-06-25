@@ -3,10 +3,10 @@ import { Component, ViewChild } from '@angular/core';
 import { Platform, MenuController, Nav } from 'ionic-angular';
 
 import { MainPage } from '../pages/main_page/main_page';
-import { SearchResultPage } from '../pages/list/list';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { SearchHistoryList } from "../pages/search_history/search-history-list";
 
 
 @Component({
@@ -33,7 +33,7 @@ export class MyApp {
     // set our app's pages
     this.pages = [
       { title: 'Shopping Search', component: MainPage },
-      { title: 'Search History', component: SearchResultPage }
+      { title: 'Search History', component: SearchHistoryList }
     ];
   }
 

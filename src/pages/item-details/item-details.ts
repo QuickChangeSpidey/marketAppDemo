@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Screenshot } from '@ionic-native/screenshot';
 import { AlertController } from 'ionic-angular';
+import { ContactListPage } from "../contact_list/contact-list";
 
 
 @Component({
@@ -55,9 +56,11 @@ export class ItemDetailsPage {
   }
 
   sendToContact() {
-
-
+    if (this.selectedItem['links'][0]['href'] != null) {
+      this.navCtrl.push(ContactListPage, {'refUrl': this.selectedItem['links'][0]['href']}).then();
+    }
   }
+
 
 
   reset() {

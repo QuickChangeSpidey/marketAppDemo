@@ -28,9 +28,6 @@ export class SearchResultPage {
   }
 
   itemTapped(event, item) {
-
-    console.log(item);
-    console.log(item['id']);
     this.productServiceProvider.getProduct(item['id']).subscribe((data)=>{
       this.navCtrl.push(ItemDetailsPage, {
         data: data
