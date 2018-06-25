@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
-
 import { NavController, NavParams } from 'ionic-angular';
-
 import { Screenshot } from '@ionic-native/screenshot';
+import { AlertController } from 'ionic-angular';
 
-import {Contacts} from '@ionic-native/contacts'
 
 @Component({
   selector: 'page-item-details',
@@ -12,30 +10,52 @@ import {Contacts} from '@ionic-native/contacts'
 })
 export class ItemDetailsPage {
   selectedItem: any;
-
   screen: any;
   state: boolean = false;
-  contactsFound: any;
+  alert:AlertController;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private screenshot: Screenshot, private contacts: Contacts) {
+  constructor(public alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams,private screenshot: Screenshot) {
     this.selectedItem = navParams.get('data');
+    this.alert = alertCtrl;
+
   }
 
   takeScreenshot() {
-    //check if filename exists if yes create new name popup
-    this.screenshot.save('jpg', 80, 'myscreenshot.jpg').then(res => {
-      this.screen = res.filePath;
-      this.state = true;
-      this.reset();
-    });
+    this.alert.create({
+      title: 'New Screenshot?',
+      message: "Enter a name for this new Screenshot you're so keen on adding",
+      inputs: [
+        {
+          name: 'Name',
+          placeholder: 'Name of screenshot file',
+
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: data => {
+            console.log(data);
+          }
+        },
+        {
+          text: 'Save',
+          handler: data => {
+            setTimeout(() => {
+              this.screenshot.save('jpg', 80, data.Name).then(res => {
+              this.screen = res.filePath;
+              this.state = true;
+              this.reset();
+              });
+            }, 500);
+          }
+        }
+      ]
+    }).present().then();
   }
 
   sendToContact() {
 
-    this.contacts.find(["displayName", "phoneNumbers"], {multiple: true}).then((contacts) => {
-      this.contactsFound = contacts;
-      console.log(this.contactsFound);
-    })
 
   }
 

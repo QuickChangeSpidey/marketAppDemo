@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-navbar>
+    <button menuToggle *ngIf="!selectedItem">
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Contact List</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content margin="20px">
+  <ion-list>
+    <button ion-item *ngFor="let item of contacts" (click)="itemSelected(item)">
+      {{ item }}
+    </button>
+  </ion-list>
+</ion-content>
