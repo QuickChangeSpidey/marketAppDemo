@@ -17,6 +17,7 @@ export class SearchHistoryList {
   }
 
   private getDBData() {
+
     this.sqlite.create({
       name: 'ionicdb.db',
       location: 'default'

@@ -20,9 +20,12 @@ export class MainPage {
   searchButtonClicked(myInput: string) {
     this.productServiceProvider.getProducts(myInput,'0','15').subscribe((data)=>{
       this.navCtrl.push(SearchResultPage,{data: data,
-      input:myInput }).then();
+      input:myInput }).then((success)=>{
+        this.makeDBEntry(myInput);
+      },(error)=>{
+        console.log(error.toString());
+      });
     });
-   this.makeDBEntry(myInput);
   }
 
   private createDB() {
@@ -42,8 +45,10 @@ export class MainPage {
       name: 'ionicdb.db',
       location: 'default'
     }).then((db: SQLiteObject) => {
-      db.executeSql('INSERT INTO searchHistory (searchItem, date) VALUES ('+myInput+'+'+new Date().toDateString()+')', {})
-        .then(res => console.log('Executed SQL'))
+      var date: Date;
+      date = new Date();
+      db.executeSql('INSERT INTO searchHistory (searchItem, date) VALUES (?,?)', [myInput, date])
+        .then(res => console.log('Executed SQL 1'))
         .catch(e => console.log(e));
 
     });
