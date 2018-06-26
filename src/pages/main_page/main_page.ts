@@ -34,7 +34,7 @@ export class MainPage {
       location: 'default'
     }).then((db: SQLiteObject) => {
       db.executeSql('CREATE TABLE IF NOT EXISTS searchHistory(rowid INTEGER PRIMARY KEY, searchItem TEXT, date TEXT)', {})
-        .then(res => console.log('Executed SQL'))
+        .then(res => console.log(res))
         .catch(e => console.log(e));
 
     });
@@ -48,7 +48,7 @@ export class MainPage {
       var date: Date;
       date = new Date();
       db.executeSql('INSERT INTO searchHistory (searchItem, date) VALUES (?,?)', [myInput, date])
-        .then(res => console.log('Executed SQL 1'))
+        .then(res => console.log(res))
         .catch(e => console.log(e));
 
     });

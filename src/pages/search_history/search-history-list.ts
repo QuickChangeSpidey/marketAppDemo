@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { SQLite, SQLiteObject} from "@ionic-native/sqlite";
 import { NavController} from "ionic-angular";
 import { ProductsServiceProvider } from "../../providers/products-service/products-service";
+import {SearchResultPage} from "../list/list";
 
 
 @Component({
@@ -10,31 +11,41 @@ import { ProductsServiceProvider } from "../../providers/products-service/produc
 })
 export class SearchHistoryList {
 
-  items:[any];
-
+  names: Object[];
   constructor(public navCtrl: NavController, public productServiceProvider: ProductsServiceProvider, private sqlite: SQLite) {
     this.getDBData();
+    this.names = [];
   }
 
   private getDBData() {
-
     this.sqlite.create({
       name: 'ionicdb.db',
       location: 'default'
     }).then((db: SQLiteObject) => {
-      db.executeSql('SELECT * FROM searchHistory',{})
+      db.executeSql('SELECT * FROM searchHistory',[])
         .then(res => {
-
-          console.log('Executed SQL');
-          console.log(res);
-
-          if(res.rows.length>0){
+          if (res.rows.length > 0) {
             for(let i=0; i <res.rows.length; i++) {
-              this.items.push(res.rows.item(i).searchItem);
+              this.names.push({
+                id: res.rows.item(i).rowid,
+                name: res.rows.item(i).searchItem,
+                time: res.rows.item(i).date
+              });
             }
           }
         })
         .catch(e => console.log(e));
+    });
+  }
+
+  goToSearch(name:string) {
+    this.productServiceProvider.getProducts(name,'0','15').subscribe((data)=>{
+      this.navCtrl.push(SearchResultPage,{data: data,
+        input:name }).then((success)=>{
+          console.log(name);
+      },(error)=>{
+        console.log(error.toString());
+      });
     });
   }
 }
