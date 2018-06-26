@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { SQLite, SQLiteObject} from "@ionic-native/sqlite";
 import { NavController} from "ionic-angular";
 import { ProductsServiceProvider } from "../../providers/products-service/products-service";
-import {SearchResultPage} from "../list/list";
+import { SearchResultPage } from "../list/list";
 
 
 @Component({
@@ -39,13 +39,11 @@ export class SearchHistoryList {
   }
 
   goToSearch(name:string) {
+    console.log(name);
     this.productServiceProvider.getProducts(name,'0','15').subscribe((data)=>{
+      console.log(data);
       this.navCtrl.push(SearchResultPage,{data: data,
-        input:name }).then((success)=>{
-          console.log(name);
-      },(error)=>{
-        console.log(error.toString());
-      });
+        input:name }).then();
     });
   }
 }

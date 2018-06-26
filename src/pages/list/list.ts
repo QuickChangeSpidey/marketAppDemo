@@ -16,6 +16,7 @@ export class SearchResultPage {
   input: string;
   pageNumber: number;
   hideButton: boolean;
+  hideSecondButton: boolean;
   private products: [any];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public productServiceProvider: ProductsServiceProvider) {
@@ -25,6 +26,12 @@ export class SearchResultPage {
     }
     this.products = this.navParams.get('data')['products'];
     this.input = this.navParams.get('input');
+
+    if(this.products.length<15){
+      this.hideSecondButton = false;
+    } else {
+      this.hideSecondButton = true;
+    }
   }
 
   itemTapped(event, item) {

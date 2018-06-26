@@ -28,7 +28,7 @@
     </button>
 
 
-    <button ion-button color="primary" icon-end (click)="nextClick()">
+    <button ion-button color="primary" icon-end (click)="nextClick()" *ngIf="hideSecondButton">
       Next
       <ion-icon name='arrow-forward'></ion-icon>
     </button>

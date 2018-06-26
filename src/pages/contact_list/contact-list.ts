@@ -10,17 +10,10 @@ import { Contacts } from '@ionic-native/contacts';
 export class ContactListPage {
 
   link:string;
-  contactList:Contacts;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private contacts: Contacts){
     this.link = navParams.get('refUrl');
-    this.contactList = contacts;
-
-    contacts.find([ 'displayName', 'name' ]).then((contacts)=>{
-      console.log(contacts.entries())
-
-    });
-
+    console.log(this.link);
   }
 
 
