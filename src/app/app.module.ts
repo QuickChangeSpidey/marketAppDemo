@@ -11,10 +11,9 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ProductsServiceProvider } from '../providers/products-service/products-service';
 import { HttpClientModule } from '@angular/common/http';
-import { ContactListPage } from '../pages/contact_list/contact-list';
 import { SQLite } from '@ionic-native/sqlite';
-import {SearchHistoryList} from "../pages/search_history/search-history-list";
-
+import { SearchHistoryList } from "../pages/search_history/search-history-list";
+import { SMS } from "@ionic-native/sms";
 
 
 @NgModule({
@@ -23,7 +22,6 @@ import {SearchHistoryList} from "../pages/search_history/search-history-list";
     MainPage,
     ItemDetailsPage,
     SearchResultPage,
-    ContactListPage,
     SearchHistoryList
   ],
   imports: [
@@ -37,8 +35,7 @@ import {SearchHistoryList} from "../pages/search_history/search-history-list";
     MainPage,
     ItemDetailsPage,
     SearchResultPage,
-    SearchHistoryList,
-    ContactListPage
+    SearchHistoryList
   ],
   providers: [
     StatusBar,
@@ -46,6 +43,7 @@ import {SearchHistoryList} from "../pages/search_history/search-history-list";
     SplashScreen,
     Screenshot,
     SQLite,
+    SMS,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ProductsServiceProvider
   ]

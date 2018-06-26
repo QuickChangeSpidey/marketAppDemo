@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Screenshot } from '@ionic-native/screenshot';
-import { AlertController } from 'ionic-angular';
-import { ContactListPage } from "../contact_list/contact-list";
+import { AlertController, ToastController } from 'ionic-angular';
+import { Contacts } from "@ionic-native/contacts";
+import { SMS } from "@ionic-native/sms";
 
 
 @Component({
@@ -14,11 +15,14 @@ export class ItemDetailsPage {
   screen: any;
   state: boolean = false;
   alert:AlertController;
+  contactList: Contacts;
+  message: SMS;
 
-  constructor(public alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams,private screenshot: Screenshot) {
+  constructor(private toastCtrl: ToastController, private sms: SMS, public alertCtrl: AlertController, private contacts: Contacts ,public navCtrl: NavController, public navParams: NavParams,private screenshot: Screenshot) {
     this.selectedItem = navParams.get('data');
     this.alert = alertCtrl;
-
+    this.message = sms;
+    this.contactList = contacts;
   }
 
   takeScreenshot() {
@@ -57,11 +61,31 @@ export class ItemDetailsPage {
 
   sendToContact() {
     if (this.selectedItem['links'][0]['href'] != null) {
-      this.navCtrl.push(ContactListPage, {'refUrl': this.selectedItem['links'][0]['href']}).then();
+      this.contactList.pickContact().then((contact) => {
+
+
+        console.log(contact.phoneNumbers[0]['number']);
+
+        this.message.send('2056444584',
+          this.selectedItem['links'][0]['href'] +" Hey! Checkout this cool product listing on shop.com"
+          ,).then((result) => {
+          let successToast = this.toastCtrl.create({
+            message: "Text message sent successfully! :)",
+            duration: 3000
+          })
+          successToast.present();
+        }, (error) => {
+          let errorToast = this.toastCtrl.create({
+            message: "Text message not sent. :(",
+            duration: 3000
+          })
+          errorToast.present();
+        });
+      },()=>{
+        console.log("rejected");
+      });
     }
   }
-
-
 
   reset() {
     var self = this;
