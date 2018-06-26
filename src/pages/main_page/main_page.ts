@@ -9,8 +9,13 @@ import { SQLite, SQLiteObject} from "@ionic-native/sqlite";
   templateUrl: 'main_page.html'
 })
 export class MainPage {
+
   constructor(public navCtrl: NavController, public productServiceProvider: ProductsServiceProvider,  private sqlite: SQLite) {
    this.productServiceProvider.getProductCategories().subscribe((data)=>{
+     console.log(data);
+   },(error)=>{
+     console.log(error);
+   }, ()=>{
    });
 
    this.createDB();
@@ -21,6 +26,7 @@ export class MainPage {
     this.productServiceProvider.getProducts(myInput,'0','15').subscribe((data)=>{
       this.navCtrl.push(SearchResultPage,{data: data,
       input:myInput }).then((success)=>{
+        console.log(success);
         this.makeDBEntry(myInput);
       },(error)=>{
         console.log(error.toString());

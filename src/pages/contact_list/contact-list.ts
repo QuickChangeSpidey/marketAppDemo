@@ -17,6 +17,7 @@ export class ContactListPage {
     this.contactList = contacts;
 
     contacts.find([ 'displayName', 'name' ]).then((contacts)=>{
+      console.log(contacts.entries())
 
     });
 
