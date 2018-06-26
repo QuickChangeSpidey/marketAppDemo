@@ -62,12 +62,9 @@ export class ItemDetailsPage {
   sendToContact() {
     if (this.selectedItem['links'][0]['href'] != null) {
       this.contactList.pickContact().then((contact) => {
-
-
-        console.log(contact.phoneNumbers[0]['number']);
-
-        this.message.send('2056444584',
-          this.selectedItem['links'][0]['href'] +" Hey! Checkout this cool product listing on shop.com"
+        var phoneNumber = contact.phoneNumbers[0].value;
+        this.message.send(phoneNumber,
+          this.selectedItem['links'][0]['href'] + " Hey! Checkout this cool product listing on shop.com"
           ,).then((result) => {
           let successToast = this.toastCtrl.create({
             message: "Text message sent successfully! :)",
@@ -81,7 +78,7 @@ export class ItemDetailsPage {
           })
           errorToast.present();
         });
-      },()=>{
+      }, () => {
         console.log("rejected");
       });
     }
